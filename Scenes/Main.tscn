@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b3xnlnvcef8c"]
+
+[ext_resource type="Texture2D" uid="uid://d308yhe3j5wu3" path="res://Assets/Backgrounds/blue.png" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://b6culji4mri" path="res://Scenes/player.tscn" id="2_idj7w"]
+[ext_resource type="PackedScene" uid="uid://x52rj0ldlp3s" path="res://Scenes/enemy.tscn" id="3_kln2b"]
+
+[node name="Space" type="Node2D" unique_id=285608581]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1628190710]
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=441911050]
+texture = ExtResource("1_r150o")
+
+[node name="Player" parent="." unique_id=1286670641 groups=["player"] instance=ExtResource("2_idj7w")]
+position = Vector2(0, 535)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=238534562]
+
+[node name="Area2D" type="StaticBody2D" parent="." unique_id=2094866963]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=868008515]
+polygon = PackedVector2Array(-360, 640, 360, 640, 360, -640, -368, -640, -368, -656, 376, -656, 376, 656, -384, 656, -376, -640, -360, -640)
+
+[node name="Enemy" parent="." unique_id=1969737942 groups=["enemies"] instance=ExtResource("3_kln2b")]
+position = Vector2(224, -488)
+
+[node name="Enemy2" parent="." unique_id=1852722224 groups=["enemies"] instance=ExtResource("3_kln2b")]
+position = Vector2(104, -496)

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b6culji4mri"]
+
+[ext_resource type="Texture2D" uid="uid://cfsy7vfqmwcpb" path="res://Assets/PNG/Effects/fire08.png" id="1_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://d1j0of8fhpb0t" path="res://Assets/PNG/playerShip3_blue.png" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://r1nqtg6vortb" path="res://Script/player.gd" id="1_vgqql"]
+[ext_resource type="Texture2D" uid="uid://bovyokp3u3jtp" path="res://Assets/PNG/Effects/shield1.png" id="3_vgqql"]
+
+[node name="Player" type="CharacterBody2D" unique_id=1286670641]
+script = ExtResource("1_vgqql")
+
+[node name="Jet" type="Sprite2D" parent="." unique_id=836134502]
+position = Vector2(0, 56)
+texture = ExtResource("1_6t5aa")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=683358983]
+polygon = PackedVector2Array(22, 28, 49, 28, 49, 21, 10, -24, 4, -38, -5, -38, -11, -23, -49, 21, -49, 30, -23, 29, -14, 38, 13, 38)
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1484975365]
+texture = ExtResource("1_v0iea")
+
+[node name="Shield" type="Sprite2D" parent="." unique_id=210214358]
+texture = ExtResource("3_vgqql")
