@@ -19,4 +19,5 @@ polygon = PackedVector2Array(22, 28, 49, 28, 49, 21, 10, -24, 4, -38, -5, -38, -
 texture = ExtResource("1_v0iea")
 
 [node name="Shield" type="Sprite2D" parent="." unique_id=210214358]
+visible = false
 texture = ExtResource("3_vgqql")
