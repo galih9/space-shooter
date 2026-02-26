@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://g8kmahuwwakr"]
+
+[ext_resource type="Script" uid="uid://bhxh0dkiknjh" path="res://Script/spawn_manager.gd" id="1_smgr"]
+[ext_resource type="Script" uid="uid://f4l7v0ygmr85" path="res://Script/enemy_spawner.gd" id="2_espn"]
+
+[sub_resource type="Curve2D" id="Curve2D_wave1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -300, -600, -129.57286, 148.60616, 129.57286, -148.60616, -24, -568, -241.57652, -134.69722, 241.57652, 134.69722, 0, -600, 0, 0, 0, 0, 300, -600)
+}
+point_count = 4
+
+[node name="SpawnManager" type="Node" unique_id=1]
+script = ExtResource("1_smgr")
+
+[node name="Wave1Path" type="Path2D" parent="." unique_id=1001]
+position = Vector2(0, 248)
+curve = SubResource("Curve2D_wave1")
+
+[node name="EnemySpawner" type="Node2D" parent="Wave1Path" unique_id=702238624]
+script = ExtResource("2_espn")
+path_travel_speed = 110.0
+
+[node name="Wave2Path" type="Path2D" parent="." unique_id=1275553036]
+position = Vector2(0, 584)
+curve = SubResource("Curve2D_wave1")
+
+[node name="EnemySpawner" type="Node2D" parent="Wave2Path" unique_id=591054827]
+script = ExtResource("2_espn")
+path_travel_speed = 110.0

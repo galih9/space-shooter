@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 @export var speed: float = 600.0
 @export var damage: int = 1
@@ -6,10 +6,6 @@ extends Area2D
 @export var shooter_tag: String = "player" # "player" or "enemy"
 
 func _ready():
-	# Connect the area_entered signal to detect collisions
-	area_entered.connect(_on_area_entered)
-	body_entered.connect(_on_body_entered)
-	
 	# Auto-destroy after 5 seconds to prevent memory leaks if it misses everything
 	get_tree().create_timer(5.0).timeout.connect(queue_free)
 
@@ -38,5 +34,5 @@ func _on_body_entered(body):
 	if body is StaticBody2D:
 		queue_free()
 
-func _on_area_entered(area):
+func _on_area_entered(_area):
 	pass # Usually handle body collisions for CharacterBody2D

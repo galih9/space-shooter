@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://d308yhe3j5wu3" path="res://Assets/Backgrounds/blue.png" id="1_r150o"]
 [ext_resource type="PackedScene" uid="uid://b6culji4mri" path="res://Scenes/player.tscn" id="2_idj7w"]
-[ext_resource type="PackedScene" uid="uid://x52rj0ldlp3s" path="res://Scenes/enemy.tscn" id="3_kln2b"]
 [ext_resource type="Script" uid="uid://btw46iujgr7g3" path="res://Script/main.gd" id="4_main"]
+[ext_resource type="PackedScene" uid="uid://g8kmahuwwakr" path="res://Scenes/spawn_manager.tscn" id="5_smgr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kln2b"]
 size = Vector2(32, 1280)
@@ -33,35 +33,7 @@ position = Vector2(0, 535)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=238534562]
 
-[node name="BorderLeft" type="StaticBody2D" parent="." unique_id=1991839762]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderLeft" unique_id=771001123]
-position = Vector2(-376, 0)
-shape = SubResource("RectangleShape2D_kln2b")
-
-[node name="BorderRight" type="StaticBody2D" parent="." unique_id=731282721]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderRight" unique_id=681020382]
-position = Vector2(376, 0)
-shape = SubResource("RectangleShape2D_kln2b")
-
-[node name="Enemy" parent="." unique_id=1969737942 groups=["enemies"] instance=ExtResource("3_kln2b")]
-position = Vector2(224, -488)
-
-[node name="Enemy2" parent="." unique_id=1852722224 groups=["enemies"] instance=ExtResource("3_kln2b")]
-position = Vector2(104, -496)
-
-[node name="BorderBottom" type="StaticBody2D" parent="." unique_id=791212661]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderBottom" unique_id=1838682481]
-position = Vector2(0, 648)
-shape = SubResource("RectangleShape2D_rgh2o")
-
-[node name="BorderTop" type="StaticBody2D" parent="." unique_id=1426288117]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderTop" unique_id=1152366876]
-position = Vector2(0, -648)
-shape = SubResource("RectangleShape2D_rgh2o")
+[node name="SpawnManager" parent="." unique_id=1284502542 instance=ExtResource("5_smgr")]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=400416841]
 
@@ -211,3 +183,29 @@ offset_right = -20.0
 offset_bottom = 43.0
 grow_horizontal = 0
 text = "HP: 10"
+
+[node name="Boundary" type="Node" parent="." unique_id=283807960]
+
+[node name="BorderLeft" type="StaticBody2D" parent="Boundary" unique_id=1991839762]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/BorderLeft" unique_id=771001123]
+position = Vector2(-376, 0)
+shape = SubResource("RectangleShape2D_kln2b")
+
+[node name="BorderRight" type="StaticBody2D" parent="Boundary" unique_id=731282721]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/BorderRight" unique_id=681020382]
+position = Vector2(376, 0)
+shape = SubResource("RectangleShape2D_kln2b")
+
+[node name="BorderBottom" type="StaticBody2D" parent="Boundary" unique_id=791212661]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/BorderBottom" unique_id=1838682481]
+position = Vector2(0, 648)
+shape = SubResource("RectangleShape2D_rgh2o")
+
+[node name="BorderTop" type="StaticBody2D" parent="Boundary" unique_id=1426288117]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/BorderTop" unique_id=1152366876]
+position = Vector2(0, -648)
+shape = SubResource("RectangleShape2D_rgh2o")

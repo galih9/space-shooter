@@ -3,14 +3,74 @@
 [ext_resource type="Texture2D" uid="uid://cfsy7vfqmwcpb" path="res://Assets/PNG/Effects/fire08.png" id="1_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://d1j0of8fhpb0t" path="res://Assets/PNG/playerShip3_blue.png" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://r1nqtg6vortb" path="res://Script/player.gd" id="1_vgqql"]
+[ext_resource type="Texture2D" uid="uid://vqg02ud27m04" path="res://Assets/PNG/Effects/fire10.png" id="2_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://bovyokp3u3jtp" path="res://Assets/PNG/Effects/shield1.png" id="3_vgqql"]
+[ext_resource type="Texture2D" uid="uid://bb2sabe3ewlpc" path="res://Assets/PNG/Effects/fire09.png" id="5_fkybt"]
+[ext_resource type="Texture2D" uid="uid://da5b0q4ck05yb" path="res://Assets/PNG/Damage/playerShip3_damage3.png" id="7_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://brsbtf4utlg65" path="res://Assets/PNG/Damage/playerShip3_damage1.png" id="8_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://yqdy6d1r0ex4" path="res://Assets/PNG/Damage/playerShip3_damage2.png" id="9_gymyn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x3wgy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_x3wgy")
+}],
+"loop": true,
+"name": &"backward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6t5aa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_fkybt")
+}],
+"loop": true,
+"name": &"forward",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pu2lt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_f1ek2")
+}],
+"loop": true,
+"name": &"high_damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_tx1dd")
+}],
+"loop": true,
+"name": &"low_damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_gymyn")
+}],
+"loop": true,
+"name": &"med_damage",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D" unique_id=1286670641]
 script = ExtResource("1_vgqql")
 
-[node name="Jet" type="Sprite2D" parent="." unique_id=836134502]
+[node name="Jet" type="AnimatedSprite2D" parent="." unique_id=1109696918]
 position = Vector2(0, 56)
-texture = ExtResource("1_6t5aa")
+sprite_frames = SubResource("SpriteFrames_x3wgy")
+animation = &"forward"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=683358983]
 polygon = PackedVector2Array(22, 28, 49, 28, 49, 21, 10, -24, 4, -38, -5, -38, -11, -23, -49, 21, -49, 30, -23, 29, -14, 38, 13, 38)
@@ -21,3 +81,8 @@ texture = ExtResource("1_v0iea")
 [node name="Shield" type="Sprite2D" parent="." unique_id=210214358]
 visible = false
 texture = ExtResource("3_vgqql")
+
+[node name="Damage" type="AnimatedSprite2D" parent="." unique_id=782332927]
+visible = false
+sprite_frames = SubResource("SpriteFrames_pu2lt")
+animation = &"low_damage"

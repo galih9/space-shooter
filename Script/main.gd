@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var player = %Player
 @onready var parallax = %Parallax2D
+@onready var spawn_manager = $SpawnManager
 
 # UI Nodes
 @onready var ui_canvas = $UI
@@ -35,21 +36,16 @@ func _ready():
 	hud.visible = false
 	pause_screen.visible = false
 	game_over_screen.visible = false
+	
 	if player:
 		player.health_changed.connect(_on_player_health_changed)
 		player.player_died.connect(_on_player_died)
-	
-	for enemy in get_tree().get_nodes_in_group("enemies"):
-		enemy.enemy_died.connect(_on_enemy_died)
 
 func _process(delta):
 	if game_running and not is_paused:
-		# Scroll the parallax background
-		# "scroll goes vertical to make illusion of plane is moving" -> Plane moves UP contextually, so background moves DOWN.
-		# `scroll_offset` += Vector2(0, speed * delta)
 		parallax.scroll_offset.y += 100 * delta
 		
-	if Input.is_action_just_pressed("ui_cancel"): # Escape key usually
+	if Input.is_action_just_pressed("ui_cancel"):
 		toggle_pause()
 
 func start_game():
@@ -64,8 +60,14 @@ func start_game():
 	game_over_screen.visible = false
 	hud.visible = true
 	
-	# Reset player if needed (reload scene often easier for full reset, but here we just start)
-	# If this is restart, we might reload.
+	# Start the enemy wave manager
+	if spawn_manager:
+		# Connect score signal (only once — guard against double-connect on restart)
+		if not spawn_manager.enemy_killed.is_connected(_on_enemy_died):
+			spawn_manager.enemy_killed.connect(_on_enemy_died)
+		if not spawn_manager.all_waves_finished.is_connected(_on_all_waves_finished):
+			spawn_manager.all_waves_finished.connect(_on_all_waves_finished)
+		spawn_manager.start()
 
 func toggle_pause():
 	if not game_running: return
@@ -79,6 +81,9 @@ func game_over():
 	get_tree().paused = true
 	game_over_screen.visible = true
 	hud.visible = false
+	
+	if spawn_manager:
+		spawn_manager.stop()
 
 func _on_player_health_changed(hp):
 	hp_label.text = "HP: " + str(hp)
@@ -90,10 +95,13 @@ func _on_enemy_died(points):
 	score += points
 	update_score_ui()
 
+func _on_all_waves_finished():
+	# Could show a "Wave Clear!" message here
+	pass
+
 func update_score_ui():
 	score_label.text = "Score: " + str(score)
 
-# Button Signals (Connect these in Scene editor or via code if nodes have unique names)
 func _on_start_button_pressed():
 	start_game()
 	
