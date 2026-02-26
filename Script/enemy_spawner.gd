@@ -10,6 +10,7 @@ signal enemy_scored(points)
 @export var enemy_count: int = 5
 @export var spawn_interval: float = 0.8   # seconds between each enemy spawn
 @export var path_travel_speed: float = 150.0  # pixels/sec along the path
+@export var shoot_stagger: float = 0.1    # extra delay between each enemy's first shot
 
 # Internal
 var _enemies_spawned: int = 0
@@ -61,6 +62,9 @@ func _spawn_next_enemy():
 	# Animate the follower along the path each frame
 	var path_length: float = _path.curve.get_baked_length()
 	_animate_follower(follower, path_length)
+
+	# Start shooting with a stagger based on spawn order
+	enemy.start_shooting(_enemies_spawned * shoot_stagger)
 
 	_enemies_spawned += 1
 
